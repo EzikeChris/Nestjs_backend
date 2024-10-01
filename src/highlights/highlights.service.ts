@@ -5,26 +5,29 @@ import { IHighlight } from './highlight.interface';
 export class HighlightsService {
   private highlights: IHighlight[] = [];
   private idCounter = 1;
-
-  create(highlight: Omit<IHighlight, 'id'>): IHighlight {
+// Create New Highlight
+  createHighlight(highlight: Omit<IHighlight, 'id'>): IHighlight {
     const newHighlight = { id: this.idCounter++, ...highlight };
     this.highlights.push(newHighlight);
     return newHighlight;
   }
 
+  // Find all highlights
   findAll(): IHighlight[] {
     return this.highlights;
   }
 
+  // find highlight by id
   findOne(id: number): IHighlight {
-    const item = this.highlights.find(highlight => highlight.id == id);
-    if (!item) {
+    const highlightitem = this.highlights.find(highlight => highlight.id == id);
+    if (!highlightitemitem) {
       throw new NotFoundException(`Highlight with ID ${id} not found`);
     }
-    return item;
+    return highlightitemitem;
   }
 
-  update(id: number, highlight: Partial<IHighlight>): IHighlight {
+  // Update Highlight by Index
+  updateHighlight(id: number, highlight: Partial<IHighlight>): IHighlight {
     const index = this.highlights.findIndex(highlight => highlight.id == id);
     if (index === -1) {
       throw new NotFoundException(`Highlight with ID ${id} not found`);
@@ -33,6 +36,7 @@ export class HighlightsService {
     return this.highlights[index];
   }
 
+  // delete the higlight by 
   delete(id: number): void {
     const index = this.highlights.findIndex(highlight => highlight.id == id);
     if (index === -1) {
